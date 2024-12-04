@@ -1,3 +1,5 @@
+// javac -d classes -cp lib/pddl4j-4.0.0.jar:lib/org.sat4j.core.jar:lib/sat4j-sat.jar  src/fr/uga/pddl4j/examples/sat/SATPlanner.java
+// java -cp classes:lib/pddl4j-4.0.0.jar:lib/org.sat4j.core.jar:lib/sat4j-sat.jar fr.uga.pddl4j.examples.sat.SATPlanner src/test/blocks/strips-typed/domain.pddl src/test/blocks/strips-typed/p001.pddl
 package fr.uga.pddl4j.examples.sat;
 
 
