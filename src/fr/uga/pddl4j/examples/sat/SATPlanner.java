@@ -90,7 +90,7 @@ public final class SATPlanner extends AbstractPlanner<ADLProblem> {
      * @return The unique ID of the fluent (i.e unique ID of the state at the given
      *         time step)
      */
-    public int getFluentUniqueIDforTimeStep(ADLProblem problem, Fluent state, int timeStep) {
+    public int getFluentID(ADLProblem problem, Fluent state, int timeStep) {
         int idxState = problem.getFluents().indexOf(state);
         return (problem.getFluents().size() + problem.getActions().size()) * timeStep + 1 + idxState;
     }
@@ -119,7 +119,7 @@ public final class SATPlanner extends AbstractPlanner<ADLProblem> {
      * @return The unique ID of the action (i.e unique ID of the action at the given
      *         time step)
      */
-    public int getActionUniqueIDforTimeStep(Problem problem, Action action, int timeStep) {
+    public int getActionID(Problem problem, Action action, int timeStep) {
         int idxAction = problem.getActions().indexOf(action);
         return (problem.getFluents().size() + problem.getActions().size()) * timeStep + 1 + problem.getFluents().size()
                 + idxAction;
@@ -167,11 +167,11 @@ public final class SATPlanner extends AbstractPlanner<ADLProblem> {
             Fluent fluent = allFluents.get(i);
 
             if (posFluents.get(i)) {
-                IVecInt clause = new VecInt(new int[] { getFluentUniqueIDforTimeStep(problem, fluent, 0) });
+                IVecInt clause = new VecInt(new int[] { getFluentID(problem, fluent, 0) });
                 clauses.push(clause);
                 posFluents.set(i);
             } else {
-                IVecInt clause = new VecInt(new int[] { -(getFluentUniqueIDforTimeStep(problem, fluent, 0)) });
+                IVecInt clause = new VecInt(new int[] { -(getFluentID(problem, fluent, 0)) });
                 clauses.push(clause);
             }
             
@@ -193,7 +193,7 @@ public final class SATPlanner extends AbstractPlanner<ADLProblem> {
         for (int p = posFluents.nextSetBit(0); p >= 0; p = posFluents.nextSetBit(p + 1)) {
             
                 Fluent fluent = problem.getFluents().get(p);
-                IVecInt clause = new VecInt(new int[] { getFluentUniqueIDforTimeStep(problem, fluent, planSize) });
+                IVecInt clause = new VecInt(new int[] { getFluentID(problem, fluent, planSize) });
                 clauses.push(clause);
 
                 posFluents.set(p);
@@ -214,7 +214,7 @@ public final class SATPlanner extends AbstractPlanner<ADLProblem> {
 
         for (int timeStep = 0; timeStep < planSize; timeStep++) {
             for (Action action : problem.getActions()) {
-                int actionId = getActionUniqueIDforTimeStep(problem, action, timeStep);
+                int actionId = getActionID(problem, action, timeStep);
                 BitVector prePosFluents = action.getPrecondition().getPositiveFluents();
                 BitVector preNegFluents = action.getPrecondition().getNegativeFluents();
 
@@ -238,7 +238,7 @@ public final class SATPlanner extends AbstractPlanner<ADLProblem> {
         for (int p = fluents.nextSetBit(0); p >= 0; p = fluents.nextSetBit(p + 1)) {
 
             Fluent fluent = problem.getFluents().get(p);
-            int fluentId = getFluentUniqueIDforTimeStep(problem, fluent, timeStep);
+            int fluentId = getFluentID(problem, fluent, timeStep);
             VecInt clause = new VecInt(new int[] { -actionId, isPositive ? fluentId : -fluentId });
 
             clauses.push(clause);
@@ -250,7 +250,7 @@ public final class SATPlanner extends AbstractPlanner<ADLProblem> {
         for (int p = fluents.nextSetBit(0); p >= 0; p = fluents.nextSetBit(p + 1)) {
 
             Fluent fluent = problem.getFluents().get(p);
-            int fluentId = getFluentUniqueIDforTimeStep(problem, fluent, timeStep+1);
+            int fluentId = getFluentID(problem, fluent, timeStep+1);
             VecInt clause = new VecInt(new int[] { -actionId, isPositive ? fluentId : -fluentId });
 
             clauses.push(clause);
@@ -265,7 +265,7 @@ public final class SATPlanner extends AbstractPlanner<ADLProblem> {
      * @param planSize Size of the plan
      * @return A vector of set (VecInt) of litterals in the Dimacs format
      */
-    public Vec<IVecInt> encodeExplanatoryFrameAxioms(final ADLProblem problem, int planSize) {
+    public Vec<IVecInt> encodeStateTransitionsByStep(final ADLProblem problem, int planSize) {
         Vec<IVecInt> clauses = new Vec<IVecInt>();
         List<Action> actions = problem.getActions();
         List<Fluent> fluents = problem.getFluents();
@@ -306,12 +306,12 @@ public final class SATPlanner extends AbstractPlanner<ADLProblem> {
     
     private VecInt createFrameAxiom(Fluent fluent, List<Action> actions, int timeStep, boolean isPositive, ADLProblem problem) {
         VecInt clause = new VecInt();
-        int fluentId1 = getFluentUniqueIDforTimeStep(problem, fluent, timeStep);
-        int fluentId2 = getFluentUniqueIDforTimeStep(problem, fluent, timeStep + 1);
+        int fluentId1 = getFluentID(problem, fluent, timeStep);
+        int fluentId2 = getFluentID(problem, fluent, timeStep + 1);
         clause.push(isPositive ? fluentId1 : -fluentId1);
         clause.push(isPositive ? -fluentId2 : fluentId2);
         for (Action action : actions) {
-            clause.push(getActionUniqueIDforTimeStep(problem, action, timeStep));
+            clause.push(getActionID(problem, action, timeStep));
         }
         return clause;
     }
@@ -324,7 +324,7 @@ public final class SATPlanner extends AbstractPlanner<ADLProblem> {
      * @param planSize Size of the plan
      * @return A vector of set (VecInt) of litterals in the Dimacs format
      */
-    public Vec<IVecInt> encodeCompleteExclusionAxioms(final ADLProblem problem, int planSize) {
+    public Vec<IVecInt> EncodeActionDisjunction(final ADLProblem problem, int planSize) {
 
         Vec<IVecInt> clauses = new Vec<IVecInt>();
 
@@ -334,8 +334,8 @@ public final class SATPlanner extends AbstractPlanner<ADLProblem> {
                 Action action1 = problem.getActions().get(iterAction1);
                 Action action2 = problem.getActions().get(iterAction2);
 
-                int initAction1Idx = getActionUniqueIDforTimeStep(problem, action1, 0);
-                int initAction2Idx = getActionUniqueIDforTimeStep(problem, action2, 0);
+                int initAction1Idx = getActionID(problem, action1, 0);
+                int initAction2Idx = getActionID(problem, action2, 0);
 
                 int offsetToNextActionIdx = problem.getActions().size() + problem.getFluents().size();
 
@@ -401,8 +401,8 @@ public final class SATPlanner extends AbstractPlanner<ADLProblem> {
         Vec<IVecInt> clausesInitState = encodeInitialState(problem, planSize);
         Vec<IVecInt> clausesGoalState = encodeGoalState(problem, planSize);
         Vec<IVecInt> clausesActions = encodeActions(problem, planSize);
-        Vec<IVecInt> clausesExplanatoryFrameAxioms = encodeExplanatoryFrameAxioms(problem, planSize);
-        Vec<IVecInt> clausesCompleteExclusionAxioms = encodeCompleteExclusionAxioms(problem, planSize);
+        Vec<IVecInt> clausesExplanatoryFrameAxioms = encodeStateTransitionsByStep(problem, planSize);
+        Vec<IVecInt> clausesCompleteExclusionAxioms = EncodeActionDisjunction(problem, planSize);
 
         Vec<IVecInt> clauses = new Vec<IVecInt>();
         clausesInitState.copyTo(clauses);
