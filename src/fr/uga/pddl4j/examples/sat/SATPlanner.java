@@ -314,9 +314,10 @@ public final class SATPlanner extends AbstractPlanner<ADLProblem> {
     
     private VecInt createFrameAxiom(Fluent fluent, List<Action> actions, int timeStep, boolean isPositive, ADLProblem problem) {
         VecInt clause = new VecInt();
-        int fluentId = getFluentUniqueIDforTimeStep(problem, fluent, timeStep);
-        clause.push(isPositive ? fluentId : -fluentId);
-        clause.push(isPositive ? -fluentId : fluentId);
+        int fluentId1 = getFluentUniqueIDforTimeStep(problem, fluent, timeStep);
+        int fluentId2 = getFluentUniqueIDforTimeStep(problem, fluent, timeStep + 1);
+        clause.push(isPositive ? fluentId1 : -fluentId1);
+        clause.push(isPositive ? -fluentId2 : fluentId2);
         for (Action action : actions) {
             clause.push(getActionUniqueIDforTimeStep(problem, action, timeStep));
         }
