@@ -169,6 +169,7 @@ public final class SATPlanner extends AbstractPlanner<ADLProblem> {
         Vec<IVecInt> clauses = new Vec<IVecInt>();
         BitVector posFluents = problem.getInitialState().getPositiveFluents();
         List<Fluent> allFluents = problem.getFluents();
+
     
         for (int i = 0; i < allFluents.size(); i++) {
             Fluent fluent = allFluents.get(i);
@@ -176,8 +177,9 @@ public final class SATPlanner extends AbstractPlanner<ADLProblem> {
             if (posFluents.get(i)) {
                 IVecInt clause = new VecInt(new int[] { getFluentUniqueIDforTimeStep(problem, fluent, 0) });
                 clauses.push(clause);
+                posFluents.set(i);
             } else {
-                IVecInt clause = new VecInt(new int[] { -(getFluentUniqueIDforTimeStep(problem, fluent, 0)+1) });
+                IVecInt clause = new VecInt(new int[] { -(getFluentUniqueIDforTimeStep(problem, fluent, 0)) });
                 clauses.push(clause);
             }
             
@@ -225,14 +227,14 @@ public final class SATPlanner extends AbstractPlanner<ADLProblem> {
                 BitVector preNegFluents = action.getPrecondition().getNegativeFluents();
 
                 // Encode positive and negative preconditions
-                encodeFluents(prePosFluents, problem, timeStep, actionId, true, clausesActions);
-                encodeFluents(preNegFluents, problem, timeStep, actionId, false, clausesActions);
+                encodeFluentsPrecond(prePosFluents, problem, timeStep, actionId, true, clausesActions);
+                encodeFluentsPrecond(preNegFluents, problem, timeStep, actionId, false, clausesActions);
 
                 // Encode positive and negative effects
                 BitVector effPosFluents = action.getUnconditionalEffect().getPositiveFluents();
                 BitVector effNegFluents = action.getUnconditionalEffect().getNegativeFluents();
-                encodeFluents(effPosFluents, problem, timeStep, actionId, true, clausesActions);
-                encodeFluents(effNegFluents, problem, timeStep, actionId, false, clausesActions);
+                encodeFluentsEff(effPosFluents, problem, timeStep, actionId, true, clausesActions);
+                encodeFluentsEff(effNegFluents, problem, timeStep, actionId, false, clausesActions);
             }
         }
 
@@ -240,11 +242,23 @@ public final class SATPlanner extends AbstractPlanner<ADLProblem> {
     }
 
 
-    private void encodeFluents(BitVector fluents, ADLProblem problem, int timeStep, int actionId, boolean isPositive, Vec<IVecInt> clauses) {
+    private void encodeFluentsPrecond(BitVector fluents, ADLProblem problem, int timeStep, int actionId, boolean isPositive, Vec<IVecInt> clauses) {
         for (int p = fluents.nextSetBit(0); p >= 0; p = fluents.nextSetBit(p + 1)) {
 
             Fluent fluent = problem.getFluents().get(p);
             int fluentId = getFluentUniqueIDforTimeStep(problem, fluent, timeStep);
+            VecInt clause = new VecInt(new int[] { -actionId, isPositive ? fluentId : -fluentId });
+
+            clauses.push(clause);
+            fluents.set(p);
+        }
+    }
+
+    private void encodeFluentsEff(BitVector fluents, ADLProblem problem, int timeStep, int actionId, boolean isPositive, Vec<IVecInt> clauses) {
+        for (int p = fluents.nextSetBit(0); p >= 0; p = fluents.nextSetBit(p + 1)) {
+
+            Fluent fluent = problem.getFluents().get(p);
+            int fluentId = getFluentUniqueIDforTimeStep(problem, fluent, timeStep+1);
             VecInt clause = new VecInt(new int[] { -actionId, isPositive ? fluentId : -fluentId });
 
             clauses.push(clause);
@@ -260,81 +274,55 @@ public final class SATPlanner extends AbstractPlanner<ADLProblem> {
      * @return A vector of set (VecInt) of litterals in the Dimacs format
      */
     public Vec<IVecInt> encodeExplanatoryFrameAxioms(final ADLProblem problem, int planSize) {
-
-        Vec<IVecInt> clausesExplanatoryFrameAxioms = new Vec<IVecInt>();
-
-        // For each state, initialize two lists which will contains all the actions
-        // that have this state as positive effects or negative effects
-        ArrayList<Action>[] positiveEffectOnFluent = (ArrayList<Action>[]) new ArrayList[problem.getFluents().size()];
-        ArrayList<Action>[] negativeEffectOnFluent = (ArrayList<Action>[]) new ArrayList[problem.getFluents().size()];
-
-        for (int i = 0; i < problem.getFluents().size(); i++) {
-            positiveEffectOnFluent[i] = new ArrayList<Action>();
-            negativeEffectOnFluent[i] = new ArrayList<Action>();
+        Vec<IVecInt> clauses = new Vec<IVecInt>();
+        List<Action> actions = problem.getActions();
+        List<Fluent> fluents = problem.getFluents();
+    
+        // Initialize action lists for each fluent
+        List<List<Action>> posEffects = new ArrayList<>(fluents.size());
+        List<List<Action>> negEffects = new ArrayList<>(fluents.size());
+        for (int i = 0; i < fluents.size(); i++) {
+            posEffects.add(new ArrayList<>());
+            negEffects.add(new ArrayList<>());
         }
-
-        for (Action action : problem.getActions()) {
-            BitVector effectPos = action.getUnconditionalEffect().getPositiveFluents();
-
-            for (int p = effectPos.nextSetBit(0); p >= 0; p = effectPos.nextSetBit(p + 1)) {
-                positiveEffectOnFluent[p].add(action);
-                effectPos.set(p);
+    
+        // Assign actions to fluents' effects
+        for (Action action : actions) {
+            for (int p = action.getUnconditionalEffect().getPositiveFluents().nextSetBit(0); p >= 0; p = action.getUnconditionalEffect().getPositiveFluents().nextSetBit(p + 1)) {
+                posEffects.get(p).add(action);
             }
-
-            BitVector effectNeg = action.getUnconditionalEffect().getNegativeFluents();
-
-            for (int p = effectNeg.nextSetBit(0); p >= 0; p = effectNeg.nextSetBit(p + 1)) {
-                negativeEffectOnFluent[p].add(action);
-                effectNeg.set(p);
+            for (int p = action.getUnconditionalEffect().getNegativeFluents().nextSetBit(0); p >= 0; p = action.getUnconditionalEffect().getNegativeFluents().nextSetBit(p + 1)) {
+                negEffects.get(p).add(action);
             }
         }
-
-        // Now, we can construct the explanatory frame axioms
-        for (int stateIdx = 0; stateIdx < problem.getFluents().size(); stateIdx++) {
+    
+        // Construct frame axioms for each fluent and timestep
+        for (int i = 0; i < fluents.size(); i++) {
+            Fluent f = fluents.get(i);
             for (int timeStep = 0; timeStep < planSize; timeStep++) {
-                if (positiveEffectOnFluent[stateIdx].size() != 0) {
-                    // Add this clause in CNF format
-
-                    Fluent f = problem.getFluents().get(stateIdx);
-                    VecInt clause = new VecInt();
-
-                    // prettyPrintFluent(f, problem);
-
-                    // Add the fluent into the clause
-                    clause.push(getFluentUniqueIDforTimeStep(problem, f, timeStep));
-                    clause.push(-getFluentUniqueIDforTimeStep(problem, f, timeStep + 1));
-
-                    // And add all the actions which have this fluent has positive effect
-                    for (Action action : positiveEffectOnFluent[stateIdx]) {
-                        // prettyPrintAction(action, problem);
-                        clause.push(getActionUniqueIDforTimeStep(problem, action, timeStep));
-                    }
-
-                    clausesExplanatoryFrameAxioms.push(clause);
+                if (!posEffects.get(i).isEmpty()) {
+                    clauses.push(createFrameAxiom(f, posEffects.get(i), timeStep, true, problem));
                 }
-
-                if (negativeEffectOnFluent[stateIdx].size() != 0) {
-                    // Add this clause in CNF format
-
-                    Fluent f = problem.getFluents().get(stateIdx);
-                    VecInt clause = new VecInt();
-
-                    // Add the fluent into the clause
-                    clause.push(-getFluentUniqueIDforTimeStep(problem, f, timeStep));
-                    clause.push(getFluentUniqueIDforTimeStep(problem, f, timeStep + 1));
-
-                    // And add all the actions which have this fluent has negative effect
-                    for (Action action : negativeEffectOnFluent[stateIdx]) {
-                        clause.push(getActionUniqueIDforTimeStep(problem, action, timeStep));
-                    }
-
-                    clausesExplanatoryFrameAxioms.push(clause);
+                if (!negEffects.get(i).isEmpty()) {
+                    clauses.push(createFrameAxiom(f, negEffects.get(i), timeStep, false, problem));
                 }
             }
         }
-
-        return clausesExplanatoryFrameAxioms;
+    
+        return clauses;
     }
+    
+    private VecInt createFrameAxiom(Fluent fluent, List<Action> actions, int timeStep, boolean isPositive, ADLProblem problem) {
+        VecInt clause = new VecInt();
+        int fluentId = getFluentUniqueIDforTimeStep(problem, fluent, timeStep);
+        clause.push(isPositive ? fluentId : -fluentId);
+        clause.push(isPositive ? -fluentId : fluentId);
+        for (Action action : actions) {
+            clause.push(getActionUniqueIDforTimeStep(problem, action, timeStep));
+        }
+        return clause;
+    }
+    
 
     /**
      * Encode the complete exclusion axioms as a CNF formula in dimacs format.
