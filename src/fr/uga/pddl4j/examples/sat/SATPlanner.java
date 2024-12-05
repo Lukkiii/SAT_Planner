@@ -2,16 +2,8 @@
 // java -cp classes:lib/pddl4j-4.0.0.jar:lib/org.sat4j.core.jar:lib/sat4j-sat.jar fr.uga.pddl4j.examples.sat.SATPlanner src/test/blocks/strips-typed/domain.pddl src/test/blocks/strips-typed/p001.pddl
 package fr.uga.pddl4j.examples.sat;
 
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.InvalidPathException;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.concurrent.locks.Condition;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
