@@ -1,0 +1,7 @@
+{
+    "java.project.sourcePaths": [
+        "src/fr/uga/pddl4j/examples/sat",
+        "src",
+        ""
+    ]
+}
