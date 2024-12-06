@@ -324,32 +324,49 @@ public final class SATPlanner extends AbstractPlanner<ADLProblem> {
      * @param planSize Size of the plan
      * @return A vector of set (VecInt) of litterals in the Dimacs format
      */
+    
     public Vec<IVecInt> EncodeActionDisjunction(final ADLProblem problem, int planSize) {
+    Vec<IVecInt> clauses = new Vec<IVecInt>();
 
-        Vec<IVecInt> clauses = new Vec<IVecInt>();
+    List<Action> actions = problem.getActions();
+    for (int timeStep = 0; timeStep < planSize; timeStep++) {
+        for (int i = 0; i < actions.size(); i++) {
+            for (int j = i + 1; j < actions.size(); j++) {
+                Action a1 = actions.get(i);
+                Action a2 = actions.get(j);
 
-        for (int iterAction1 = 0; iterAction1 < problem.getActions().size(); iterAction1++) {
-            for (int iterAction2 = 0; iterAction2 < iterAction1; iterAction2++) {
-
-                Action action1 = problem.getActions().get(iterAction1);
-                Action action2 = problem.getActions().get(iterAction2);
-
-                int initAction1Idx = getActionID(problem, action1, 0);
-                int initAction2Idx = getActionID(problem, action2, 0);
-
-                int offsetToNextActionIdx = problem.getActions().size() + problem.getFluents().size();
-
-                for (int timeStep = 0; timeStep < planSize; timeStep++) {
-
-                    int offset = offsetToNextActionIdx * timeStep;
-                    VecInt clause = new VecInt( new int[] { -(initAction1Idx + offset), -(initAction2Idx + offset) });
-                    clauses.push(clause);
+                if (areContradictoryActions(a1, a2)) {
+                    int a1Id = getActionID(problem, a1, timeStep);
+                    int a2Id = getActionID(problem, a2, timeStep);
+                    clauses.push(new VecInt(new int[] { -a1Id, -a2Id }));
                 }
             }
         }
-
-        return clauses;
     }
+    return clauses;
+}
+
+private boolean areContradictoryActions(Action a1, Action a2) {
+    BitVector a1PosEffects = a1.getUnconditionalEffect().getPositiveFluents();
+    BitVector a1NegEffects = a1.getUnconditionalEffect().getNegativeFluents();
+
+    BitVector a2PosEffects = a2.getUnconditionalEffect().getPositiveFluents();
+    BitVector a2NegEffects = a2.getUnconditionalEffect().getNegativeFluents();
+
+    if (a1PosEffects.intersects(a2NegEffects) || a2PosEffects.intersects(a1NegEffects)) {
+        return true;
+    }
+
+    BitVector a1PrePos = a1.getPrecondition().getPositiveFluents();
+    BitVector a1PreNeg = a1.getPrecondition().getNegativeFluents();
+    BitVector a2PrePos = a2.getPrecondition().getPositiveFluents();
+    BitVector a2PreNeg = a2.getPrecondition().getNegativeFluents();
+
+    if (a1PosEffects.intersects(a2PreNeg) || a1NegEffects.intersects(a2PrePos)) {
+        return true;
+    }
+    return false;
+}
 
     /**
      * Use a SAT solver to check if a problem is satisfiable and to find a model.
