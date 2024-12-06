@@ -1,0 +1,75 @@
+WARNING: sun.reflect.Reflection.getCallerClass is not supported. This will impact performance.
+
+parsing domain file "domain.pddl" done successfully
+parsing problem file "p07.pddl" done successfully
+# WARNING: Unable to get Instrumentation. Dynamic Attach failed. You may add this JAR as -javaagent manually, or supply -Djdk.attach.allowAttachSelf
+# WARNING: Unable to attach Serviceability Agent. You can try again with escalated privileges. Two options: a) use -Djol.tryWithSudo=true to try with sudo; b) echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+
+problem instantiation done successfully (450 actions, 150 fluents)
+
+45626 clauses
+Contradiction exception
+No solution found91097 clauses
+Is not satisfiable !
+No solution found182039 clauses
+Is not satisfiable !
+No solution found363923 clauses
+Is not satisfiable !
+No solution found727691 clauses
+Is satisfiable !
+
+found plan as follows:
+
+00: (        drive truck1 depot0 distributor0) [0]
+01: (  lift hoist1 crate4 crate0 distributor0) [0]
+02: (  lift hoist2 crate3 crate2 distributor1) [0]
+03: (  load hoist1 crate4 truck1 distributor0) [0]
+04: (  load hoist2 crate3 truck0 distributor1) [0]
+05: (  drive truck0 distributor1 distributor0) [0]
+06: (       lift hoist0 crate5 pallet0 depot0) [0]
+07: ( lift hoist1 crate0 pallet4 distributor0) [0]
+08: (        drive truck0 distributor0 depot0) [0]
+09: ( lift hoist2 crate1 pallet5 distributor1) [0]
+10: (  load hoist1 crate0 truck1 distributor0) [0]
+11: (        drive truck1 distributor0 depot0) [0]
+12: (  drop hoist2 crate1 crate2 distributor1) [0]
+13: (        load hoist0 crate5 truck0 depot0) [0]
+14: (        drive truck0 depot0 distributor1) [0]
+15: (      unload hoist0 crate0 truck1 depot0) [0]
+16: (        drive truck1 depot0 distributor0) [0]
+17: (unload hoist2 crate5 truck0 distributor1) [0]
+18: (        drive truck0 distributor1 depot0) [0]
+19: (  drive truck1 distributor0 distributor1) [0]
+20: (  drop hoist2 crate5 crate1 distributor1) [0]
+21: (        load hoist0 crate0 truck0 depot0) [0]
+22: (unload hoist2 crate4 truck1 distributor1) [0]
+23: (        drive truck0 depot0 distributor1) [0]
+24: (        drive truck1 distributor1 depot0) [0]
+25: ( drop hoist2 crate4 pallet5 distributor1) [0]
+26: (        drive truck0 distributor1 depot0) [0]
+27: (        drive truck1 depot0 distributor1) [0]
+28: (  lift hoist2 crate5 crate1 distributor1) [0]
+29: (        drive truck0 depot0 distributor0) [0]
+30: (  load hoist2 crate5 truck1 distributor1) [0]
+31: (        drive truck1 distributor1 depot0) [0]
+32: (  lift hoist2 crate1 crate2 distributor1) [0]
+33: (unload hoist1 crate3 truck0 distributor0) [0]
+34: (        drive truck1 depot0 distributor1) [0]
+35: ( drop hoist1 crate3 pallet1 distributor0) [0]
+36: (  drop hoist2 crate1 crate4 distributor1) [0]
+37: (unload hoist1 crate0 truck0 distributor0) [0]
+38: (unload hoist2 crate5 truck1 distributor1) [0]
+39: (  drive truck1 distributor1 distributor0) [0]
+40: ( drop hoist1 crate0 pallet3 distributor0) [0]
+41: (  drop hoist2 crate5 crate1 distributor1) [0]
+
+time spent:       0.01 seconds parsing 
+                  4.19 seconds encoding 
+                  1.07 seconds searching
+                  5.27 seconds total time
+
+memory used:      1.17 MBytes for problem representation
+                  0.00 MBytes for searching
+                  1.17 MBytes total
+
+

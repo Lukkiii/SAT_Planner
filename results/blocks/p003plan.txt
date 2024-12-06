@@ -1,0 +1,6 @@
+0: (unstack c b) [0]
+1: (  stack c d) [0]
+2: (  pick-up b) [0]
+3: (  stack b c) [0]
+4: (  pick-up a) [0]
+5: (  stack a b) [0]

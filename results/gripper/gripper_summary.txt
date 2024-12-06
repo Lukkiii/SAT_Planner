@@ -1,0 +1,6 @@
+Problem | Steps | Total Time (seconds)
+p01.pddl |       11 | 0.07
+p02.pddl |       21 | 0.31
+p03.pddl |       23 | 0.40
+p04.pddl |       43 | 229.53
+p05.pddl |       45 | 432.62

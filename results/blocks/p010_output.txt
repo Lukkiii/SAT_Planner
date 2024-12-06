@@ -1,0 +1,65 @@
+WARNING: sun.reflect.Reflection.getCallerClass is not supported. This will impact performance.
+
+parsing domain file "domain.pddl" done successfully
+parsing problem file "p010.pddl" done successfully
+# WARNING: Unable to get Instrumentation. Dynamic Attach failed. You may add this JAR as -javaagent manually, or supply -Djdk.attach.allowAttachSelf
+# WARNING: Unable to attach Serviceability Agent. You can try again with escalated privileges. Two options: a) use -Djol.tryWithSudo=true to try with sudo; b) echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+
+problem instantiation done successfully (112 actions, 71 fluents)
+
+6330 clauses
+Contradiction exception
+No solution found12583 clauses
+Contradiction exception
+No solution found25089 clauses
+Is not satisfiable !
+No solution found50101 clauses
+Is not satisfiable !
+No solution found100125 clauses
+Is not satisfiable !
+No solution found200173 clauses
+Is satisfiable !
+
+found plan as follows:
+
+00: (unstack e g) [0]
+01: ( put-down e) [0]
+02: (unstack g b) [0]
+03: ( put-down g) [0]
+04: (unstack b a) [0]
+05: ( put-down b) [0]
+06: (unstack a f) [0]
+07: ( put-down a) [0]
+08: (  pick-up b) [0]
+09: (  stack b f) [0]
+10: (unstack b f) [0]
+11: ( put-down b) [0]
+12: (unstack f c) [0]
+13: (  stack f e) [0]
+14: (  pick-up a) [0]
+15: ( put-down a) [0]
+16: (  pick-up b) [0]
+17: (  stack b c) [0]
+18: (unstack b c) [0]
+19: (  stack b g) [0]
+20: (unstack c d) [0]
+21: (  stack c f) [0]
+22: (unstack b g) [0]
+23: (  stack b c) [0]
+24: (  pick-up d) [0]
+25: (  stack d b) [0]
+26: (  pick-up g) [0]
+27: (  stack g d) [0]
+28: (  pick-up a) [0]
+29: (  stack a g) [0]
+
+time spent:       0.01 seconds parsing 
+                  0.43 seconds encoding 
+                  1.60 seconds searching
+                  2.04 seconds total time
+
+memory used:      0.29 MBytes for problem representation
+                  0.00 MBytes for searching
+                  0.29 MBytes total
+
+

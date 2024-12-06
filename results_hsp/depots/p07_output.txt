@@ -1,0 +1,46 @@
+WARNING: sun.reflect.Reflection.getCallerClass is not supported. This will impact performance.
+
+parsing domain file "domain.pddl" done successfully
+parsing problem file "p07.pddl" done successfully
+# WARNING: Unable to get Instrumentation. Dynamic Attach failed. You may add this JAR as -javaagent manually, or supply -Djdk.attach.allowAttachSelf
+# WARNING: Unable to attach Serviceability Agent. You can try again with escalated privileges. Two options: a) use -Djol.tryWithSudo=true to try with sudo; b) echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+
+problem instantiation done successfully (450 actions, 150 fluents)
+
+* Starting ASTAR search 
+* ASTAR search succeeded
+
+found plan as follows:
+
+00: (  lift hoist2 crate3 crate2 distributor1) [0]
+01: (  load hoist2 crate3 truck0 distributor1) [0]
+02: (  drive truck0 distributor1 distributor0) [0]
+03: (  lift hoist1 crate4 crate0 distributor0) [0]
+04: (  load hoist1 crate4 truck0 distributor0) [0]
+05: (unload hoist1 crate3 truck0 distributor0) [0]
+06: ( drop hoist1 crate3 pallet1 distributor0) [0]
+07: (       lift hoist0 crate5 pallet0 depot0) [0]
+08: (        load hoist0 crate5 truck1 depot0) [0]
+09: ( lift hoist2 crate1 pallet5 distributor1) [0]
+10: (  drop hoist2 crate1 crate2 distributor1) [0]
+11: (  drive truck0 distributor0 distributor1) [0]
+12: ( lift hoist1 crate0 pallet4 distributor0) [0]
+13: (unload hoist2 crate4 truck0 distributor1) [0]
+14: ( drop hoist2 crate4 pallet5 distributor1) [0]
+15: (  lift hoist2 crate1 crate2 distributor1) [0]
+16: (  drop hoist2 crate1 crate4 distributor1) [0]
+17: (        drive truck1 depot0 distributor1) [0]
+18: ( drop hoist1 crate0 pallet3 distributor0) [0]
+19: (unload hoist2 crate5 truck1 distributor1) [0]
+20: (  drop hoist2 crate5 crate1 distributor1) [0]
+
+time spent:       0.01 seconds parsing 
+                  0.05 seconds encoding 
+                  0.26 seconds searching
+                  0.32 seconds total time
+
+memory used:      1.17 MBytes for problem representation
+                  0.94 MBytes for searching
+                  2.11 MBytes total
+
+

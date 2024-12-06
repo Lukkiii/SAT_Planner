@@ -1,0 +1,69 @@
+WARNING: sun.reflect.Reflection.getCallerClass is not supported. This will impact performance.
+
+parsing domain file "domain.pddl" done successfully
+parsing problem file "p04.pddl" done successfully
+# WARNING: Unable to get Instrumentation. Dynamic Attach failed. You may add this JAR as -javaagent manually, or supply -Djdk.attach.allowAttachSelf
+# WARNING: Unable to attach Serviceability Agent. You can try again with escalated privileges. Two options: a) use -Djol.tryWithSudo=true to try with sudo; b) echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+
+problem instantiation done successfully (140 actions, 56 fluents)
+
+1168 clauses
+Contradiction exception
+No solution found2275 clauses
+Is not satisfiable !
+No solution found4489 clauses
+Is not satisfiable !
+No solution found8917 clauses
+Is satisfiable !
+
+found plan as follows:
+
+00: (     load-truck obj23 tru2 pos2) [0]
+01: (     load-truck obj22 tru2 pos2) [0]
+02: (     load-truck obj21 tru2 pos2) [0]
+03: (     load-truck obj13 tru1 pos1) [0]
+04: (     load-truck obj12 tru1 pos1) [0]
+05: (     load-truck obj11 tru1 pos1) [0]
+06: (drive-truck tru2 pos2 apt2 cit2) [0]
+07: (drive-truck tru1 pos1 apt1 cit1) [0]
+08: (    fly-airplane apn1 apt1 apt2) [0]
+09: (   unload-truck obj23 tru2 apt2) [0]
+10: (   unload-truck obj22 tru2 apt2) [0]
+11: (   unload-truck obj21 tru2 apt2) [0]
+12: (   unload-truck obj13 tru1 apt1) [0]
+13: (   unload-truck obj11 tru1 apt1) [0]
+14: (drive-truck tru1 apt1 pos1 cit1) [0]
+15: (  load-airplane obj22 apn1 apt2) [0]
+16: (  load-airplane obj21 apn1 apt2) [0]
+17: (drive-truck tru1 pos1 apt1 cit1) [0]
+18: (   unload-truck obj12 tru1 apt1) [0]
+19: (drive-truck tru1 apt1 pos1 cit1) [0]
+20: (    fly-airplane apn1 apt2 apt1) [0]
+21: (  load-airplane obj13 apn1 apt1) [0]
+22: (  load-airplane obj12 apn1 apt1) [0]
+23: (  load-airplane obj11 apn1 apt1) [0]
+24: (unload-airplane obj22 apn1 apt1) [0]
+25: (drive-truck tru1 pos1 apt1 cit1) [0]
+26: (    fly-airplane apn1 apt1 apt2) [0]
+27: (unload-airplane obj21 apn1 apt2) [0]
+28: (unload-airplane obj13 apn1 apt2) [0]
+29: (unload-airplane obj12 apn1 apt2) [0]
+30: (unload-airplane obj11 apn1 apt2) [0]
+31: (    fly-airplane apn1 apt2 apt1) [0]
+32: (     load-truck obj12 tru2 apt2) [0]
+33: (     load-truck obj11 tru2 apt2) [0]
+34: (drive-truck tru2 apt2 pos2 cit2) [0]
+35: (    fly-airplane apn1 apt1 apt2) [0]
+36: (   unload-truck obj12 tru2 pos2) [0]
+37: (   unload-truck obj11 tru2 pos2) [0]
+
+time spent:       0.02 seconds parsing 
+                  0.12 seconds encoding 
+                  0.02 seconds searching
+                  0.15 seconds total time
+
+memory used:      0.30 MBytes for problem representation
+                  0.00 MBytes for searching
+                  0.30 MBytes total
+
+
