@@ -28,10 +28,7 @@ import fr.uga.pddl4j.util.BitVector;
 import picocli.CommandLine;
 
 /**
- * This class implements a simple SAT planner based on SAT4J.
- *
- * @author H. Fiorino
- * @version 1.0 - 29.03.2021
+ * This class implements a simple SAT planner based on SAT4J et PDDL4J. 
  */
 @CommandLine.Command(
     name = "SATPlanner", 
@@ -67,28 +64,7 @@ public final class SATPlanner extends AbstractPlanner<ADLProblem> {
     }
 
     /**
-     * Get the fluent unique ID for the time step specified. To encode a problem as
-     * a CNF formula, there must be an unique ID for each state
-     * and each action at each time step.
-     * The encodage of the unique ID for a state or an action is as follow:
-     * <ul>
-     * <li>1 -> idx of fluent 0 at time step 0</li>
-     * <li>2 -> idx of fluent 1 at time step 0</li>
-     * <li>...</li>
-     * <li>N + 1-> idx of fluent N at time step 0</li>
-     * <li>N + 2-> idx of action 0 at time step 0</li>
-     * <li>...</li>
-     * <li>N + M + 1 -> idx of action M at time step 0</li>
-     * <li>N + M + 2 -> idx of fluent 0 at time step 1</li>
-     * <li>...</li>
-     * <li>(N + M) * n + 1-> idx of action M at time step n</li>
-     * </ul>
-     * 
-     * @param problem  The problem to solve
-     * @param state    The state to find the unique ID
-     * @param timeStep The time step of the fluent
-     * @return The unique ID of the fluent (i.e unique ID of the state at the given
-     *         time step)
+     * Get the fluent ID for the time step specified
      */
     public int getFluentID(ADLProblem problem, Fluent state, int timeStep) {
         int idxState = problem.getFluents().indexOf(state);
@@ -96,28 +72,7 @@ public final class SATPlanner extends AbstractPlanner<ADLProblem> {
     }
 
     /**
-     * Get the action unique ID for the time step specified. To encode a problem as
-     * a CNF formula, there must be an unique ID for each state
-     * and each action at each time step.
-     * The encodage of the unique ID for a state or an action is as follow:
-     * <ul>
-     * <li>1 -> idx of fluent 0 at time step 0</li>
-     * <li>2 -> idx of fluent 1 at time step 0</li>
-     * <li>...</li>
-     * <li>N + 1-> idx of fluent N at time step 0</li>
-     * <li>N + 2-> idx of action 0 at time step 0</li>
-     * <li>...</li>
-     * <li>N + M + 1 -> idx of action M at time step 0</li>
-     * <li>N + M + 2 -> idx of fluent 0 at time step 1</li>
-     * <li>...</li>
-     * <li>(N + M) * n + 1-> idx of action M at time step n</li>
-     * </ul>
-     * 
-     * @param problem  The problem to solve
-     * @param action   The action to find the unique ID
-     * @param timeStep The time step of the action
-     * @return The unique ID of the action (i.e unique ID of the action at the given
-     *         time step)
+     * Get the action ID for the time step specified
      */
     public int getActionID(Problem problem, Action action, int timeStep) {
         int idxAction = problem.getActions().indexOf(action);
@@ -126,14 +81,7 @@ public final class SATPlanner extends AbstractPlanner<ADLProblem> {
     }
 
     /**
-     * Given an unique ID (each state and each action are given an unique ID for
-     * each
-     * time step of the problem to allow the encoding of the problem into a CNF
-     * formula), find the action linked to this ID.
-     * 
-     * @param problem        The problem to solve
-     * @param actionUniqueID Unique ID of an action
-     * @return The action object linked to this ID if exist, else null
+     * Get the action with the index specified
      */
     public Action getActionWithIdx(Problem problem, int actionUniqueID) {
 
@@ -151,11 +99,7 @@ public final class SATPlanner extends AbstractPlanner<ADLProblem> {
     }
 
     /**
-     * Encode the initial state as a CNF formula in dimacs format.
-     * @param problem The problem to solve
-     * @param planSize The size of the plan
-     * @return The CNF formula in dimacs format
-     * 
+     * Encode the initial state
      */
     public Vec<IVecInt> encodeInitialState(ADLProblem problem, int planSize) {
         Vec<IVecInt> clauses = new Vec<IVecInt>();
@@ -180,11 +124,7 @@ public final class SATPlanner extends AbstractPlanner<ADLProblem> {
     }
 
     /**
-     * Encode the goal state as a CNF formula in dimacs format.
-     * @param problem The problem to solve
-     * @param planSize The size of the plan
-     * @return The CNF formula in dimacs format
-     * 
+     * Encode the goal state.
      */
     public Vec<IVecInt> encodeGoalState(ADLProblem problem, int planSize) {
         Vec<IVecInt> clauses = new Vec<IVecInt>();
@@ -202,12 +142,7 @@ public final class SATPlanner extends AbstractPlanner<ADLProblem> {
     }
 
     /**
-     * Encode the action as a CNF formula in dimacs format.
-     * @param problem The problem to solve
-     * @param action The action to encode
-     * @param timeStep The time step of the action
-     * @return The CNF formula in dimacs format
-     * 
+     * Encode the action.
      */
     public Vec<IVecInt> encodeActions(final ADLProblem problem, int planSize) {
         Vec<IVecInt> clausesActions = new Vec<IVecInt>();
@@ -233,7 +168,7 @@ public final class SATPlanner extends AbstractPlanner<ADLProblem> {
         return clausesActions;
     }
 
-
+    // Encode the fluents in the precondition of an action
     private void encodeFluentsPrecond(BitVector fluents, ADLProblem problem, int timeStep, int actionId, boolean isPositive, Vec<IVecInt> clauses) {
         for (int p = fluents.nextSetBit(0); p >= 0; p = fluents.nextSetBit(p + 1)) {
 
@@ -246,6 +181,7 @@ public final class SATPlanner extends AbstractPlanner<ADLProblem> {
         }
     }
 
+    // Encode the fluents in the effect of an action
     private void encodeFluentsEff(BitVector fluents, ADLProblem problem, int timeStep, int actionId, boolean isPositive, Vec<IVecInt> clauses) {
         for (int p = fluents.nextSetBit(0); p >= 0; p = fluents.nextSetBit(p + 1)) {
 
@@ -259,11 +195,7 @@ public final class SATPlanner extends AbstractPlanner<ADLProblem> {
     }
 
     /**
-     * Encode the explanatory frame axioms as a CNF formula in dimacs format.
-     * 
-     * @param problem  The problem to solve
-     * @param planSize Size of the plan
-     * @return A vector of set (VecInt) of litterals in the Dimacs format
+     * Encode the state transitions by step.
      */
     public Vec<IVecInt> encodeStateTransitionsByStep(final ADLProblem problem, int planSize) {
         Vec<IVecInt> clauses = new Vec<IVecInt>();
@@ -288,7 +220,6 @@ public final class SATPlanner extends AbstractPlanner<ADLProblem> {
             }
         }
     
-        // Construct frame axioms for each fluent and timestep
         for (int i = 0; i < fluents.size(); i++) {
             Fluent f = fluents.get(i);
             for (int timeStep = 0; timeStep < planSize; timeStep++) {
@@ -304,6 +235,7 @@ public final class SATPlanner extends AbstractPlanner<ADLProblem> {
         return clauses;
     }
     
+    // Create a frame axiom for a fluent
     private VecInt createFrameAxiom(Fluent fluent, List<Action> actions, int timeStep, boolean isPositive, ADLProblem problem) {
         VecInt clause = new VecInt();
         int fluentId1 = getFluentID(problem, fluent, timeStep);
@@ -318,65 +250,55 @@ public final class SATPlanner extends AbstractPlanner<ADLProblem> {
     
 
     /**
-     * Encode the complete exclusion axioms as a CNF formula in dimacs format.
-     * 
-     * @param problem  The problem to solve
-     * @param planSize Size of the plan
-     * @return A vector of set (VecInt) of litterals in the Dimacs format
+     * Encode the action disjunction.
      */
-    
     public Vec<IVecInt> EncodeActionDisjunction(final ADLProblem problem, int planSize) {
-    Vec<IVecInt> clauses = new Vec<IVecInt>();
+        Vec<IVecInt> clauses = new Vec<IVecInt>();
 
-    List<Action> actions = problem.getActions();
-    for (int timeStep = 0; timeStep < planSize; timeStep++) {
-        for (int i = 0; i < actions.size(); i++) {
-            for (int j = i + 1; j < actions.size(); j++) {
-                Action a1 = actions.get(i);
-                Action a2 = actions.get(j);
+        List<Action> actions = problem.getActions();
+        for (int timeStep = 0; timeStep < planSize; timeStep++) {
+            for (int i = 0; i < actions.size(); i++) {
+                for (int j = i + 1; j < actions.size(); j++) {
+                    Action a1 = actions.get(i);
+                    Action a2 = actions.get(j);
 
-                if (areContradictoryActions(a1, a2)) {
-                    int a1Id = getActionID(problem, a1, timeStep);
-                    int a2Id = getActionID(problem, a2, timeStep);
-                    clauses.push(new VecInt(new int[] { -a1Id, -a2Id }));
+                    if (areContradictoryActions(a1, a2)) {
+                        int a1Id = getActionID(problem, a1, timeStep);
+                        int a2Id = getActionID(problem, a2, timeStep);
+                        clauses.push(new VecInt(new int[] { -a1Id, -a2Id }));
+                    }
                 }
             }
         }
-    }
-    return clauses;
-}
-
-private boolean areContradictoryActions(Action a1, Action a2) {
-    BitVector a1PosEffects = a1.getUnconditionalEffect().getPositiveFluents();
-    BitVector a1NegEffects = a1.getUnconditionalEffect().getNegativeFluents();
-
-    BitVector a2PosEffects = a2.getUnconditionalEffect().getPositiveFluents();
-    BitVector a2NegEffects = a2.getUnconditionalEffect().getNegativeFluents();
-
-    if (a1PosEffects.intersects(a2NegEffects) || a2PosEffects.intersects(a1NegEffects)) {
-        return true;
+        return clauses;
     }
 
-    BitVector a1PrePos = a1.getPrecondition().getPositiveFluents();
-    BitVector a1PreNeg = a1.getPrecondition().getNegativeFluents();
-    BitVector a2PrePos = a2.getPrecondition().getPositiveFluents();
-    BitVector a2PreNeg = a2.getPrecondition().getNegativeFluents();
+    // Check if two actions are contradictory
+    private boolean areContradictoryActions(Action a1, Action a2) {
+        BitVector a1PosEffects = a1.getUnconditionalEffect().getPositiveFluents();
+        BitVector a1NegEffects = a1.getUnconditionalEffect().getNegativeFluents();
 
-    if (a1PosEffects.intersects(a2PreNeg) || a1NegEffects.intersects(a2PrePos)) {
-        return true;
+        BitVector a2PosEffects = a2.getUnconditionalEffect().getPositiveFluents();
+        BitVector a2NegEffects = a2.getUnconditionalEffect().getNegativeFluents();
+
+        if (a1PosEffects.intersects(a2NegEffects) || a2PosEffects.intersects(a1NegEffects)) {
+            return true;
+        }
+
+        BitVector a1PrePos = a1.getPrecondition().getPositiveFluents();
+        BitVector a1PreNeg = a1.getPrecondition().getNegativeFluents();
+        BitVector a2PrePos = a2.getPrecondition().getPositiveFluents();
+        BitVector a2PreNeg = a2.getPrecondition().getNegativeFluents();
+
+        if (a1PosEffects.intersects(a2PreNeg) || a1NegEffects.intersects(a2PrePos)) {
+            return true;
+        }
+        return false;
     }
-    return false;
-}
 
     /**
      * Use a SAT solver to check if a problem is satisfiable and to find a model.
-     * 
-     * @param clauses The CNF formula in dimacs format
-     * @param problem The problem to solve
-     * @return The model of the problem if it exists, else null
-     * @throws TimeoutException
-     */
-
+    */
     public int[] solveSAT(Vec<IVecInt> clauses, ADLProblem problem) throws TimeoutException {
 
         LOGGER.info(clauses.size() + " clauses\n");
@@ -408,11 +330,7 @@ private boolean areContradictoryActions(Action a1, Action a2) {
     }
 
     /**
-     * Encode the problem as a CNF formula in dimacs format.
-     * 
-     * @param problem  Problem to encode
-     * @param planSize Size of the plan
-     * @return A vector of set (VecInt) of litterals in the Dimacs format
+     * Encode the problem to a SAT problem.
      */
     public Vec<IVecInt> encodeProblem(final ADLProblem problem, int planSize) {
         Vec<IVecInt> clausesInitState = encodeInitialState(problem, planSize);
@@ -433,10 +351,6 @@ private boolean areContradictoryActions(Action a1, Action a2) {
 
     /**
      * Decode the model of the problem to a plan.
-     * 
-     * @param model  The model of the problem
-     * @param problem The problem to solve
-     * @return The plan of the problem
      */
     public Plan decodePlan(int[] model, ADLProblem problem) {
         Plan plan = new SequentialPlan();
@@ -470,7 +384,7 @@ private boolean areContradictoryActions(Action a1, Action a2) {
                 return null;
             }
             long endTime = System.currentTimeMillis();
-                this.getStatistics().setTimeToSearch(this.getStatistics().getTimeToSearch() + (endTime - startTime));
+            this.getStatistics().setTimeToSearch(this.getStatistics().getTimeToSearch() + (endTime - startTime));
 
             if (model == null) {
                 LOGGER.error("No solution found");
