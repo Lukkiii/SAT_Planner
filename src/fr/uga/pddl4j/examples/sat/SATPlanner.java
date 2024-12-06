@@ -1,5 +1,9 @@
-// javac -d classes -cp lib/pddl4j-4.0.0.jar:lib/org.sat4j.core.jar:lib/sat4j-sat.jar  src/fr/uga/pddl4j/examples/sat/SATPlanner.java
-// java -cp classes:lib/pddl4j-4.0.0.jar:lib/org.sat4j.core.jar:lib/sat4j-sat.jar fr.uga.pddl4j.examples.sat.SATPlanner src/test/blocks/strips-typed/domain.pddl src/test/blocks/strips-typed/p001.pddl
+//MacOS: javac -d classes -cp lib/pddl4j-4.0.0.jar:lib/org.sat4j.core.jar:lib/sat4j-sat.jar  src/fr/uga/pddl4j/examples/sat/SATPlanner.java
+//MacOS: java -cp classes:lib/pddl4j-4.0.0.jar:lib/org.sat4j.core.jar:lib/sat4j-sat.jar fr.uga.pddl4j.examples.sat.SATPlanner src/test/blocks/strips-typed/domain.pddl src/test/blocks/strips-typed/p001.pddl
+
+//Windows: javac -d classes -cp "lib/pddl4j-4.0.0.jar;lib/org.sat4j.core.jar;lib/sat4j-sat.jar" src/fr/uga/pddl4j/examples/sat/SATPlanner.java
+//Windows: java -cp "classes;lib/pddl4j-4.0.0.jar;lib/org.sat4j.core.jar;lib/sat4j-sat.jar" fr.uga.pddl4j.examples.sat.SATPlanner src/test/blocks/strips-typed/domain.pddl src/test/blocks/strips-typed/p001.pddl
+
 package fr.uga.pddl4j.examples.sat;
 
 import java.util.ArrayList;
@@ -396,7 +400,7 @@ public final class SATPlanner extends AbstractPlanner<ADLProblem> {
             this.getStatistics().setTimeToSearch(this.getStatistics().getTimeToSearch() + (endTime - startTime));
 
             if (model == null) {
-                LOGGER.error("No solution found");
+                LOGGER.error("No solution found\n");
                 this.sizePlan *= 2;
             } else {
                 break;
