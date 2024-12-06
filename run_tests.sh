@@ -46,28 +46,25 @@ for domain in "${DOMAINS[@]}"; do
     
       # Output file to store each individual test result in the domain's results directory
       output_file="$DOMAIN_RESULTS_DIR/$(basename "${problem_file%.pddl}_output.txt")"
+      plan_file="$DOMAIN_RESULTS_DIR/$(basename "${problem_file%.pddl}plan.txt")"
       
       # Run the Java command with the current domain and problem file, and save output
       echo "Running: $JAVA_CMD $domain_file $problem_file"
-      output_text=$($JAVA_CMD "$domain_file" "$problem_file")
       $JAVA_CMD "$domain_file" "$problem_file" > "$output_file"
-
-      # Extract the plan part from the output
-      plan_output=$(echo "$output_text" | grep -E '^[0-9]+: \(.*\) \[0\]$')
-
-      # Save the plan to a separate plan file
-      plan_file="$DOMAIN_RESULTS_DIR/$(basename "${problem_file%.pddl}plan.txt")"
-      echo "$plan_output" > "$plan_file"
       
       # Extract total time and steps from output file
       total_time=$(grep "total time" "$output_file" | awk '{print $1}')
       steps=$(grep -E '^[0-9]+:' "$output_file" | wc -l)
+      plan_output=$(grep -E '^[0-9]+: \(.*\) \[0\]' "$output_file")
 
       # Append the result to the domain's summary file
       echo "$(basename "$problem_file") | $steps | $total_time" >> "$SUMMARY_FILE"
       
       # Append the result to the CSV file with domain, subfolder, problem name, steps, and total time
       echo "$domain;$subfolder;$(basename "$problem_file");$steps;$total_time" >> "$CSV_FILE"
+
+      # Save the plan to a separate plan file
+      echo "$plan_output" > "$plan_file"
     done
   done
 done
