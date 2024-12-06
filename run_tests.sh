@@ -49,7 +49,15 @@ for domain in "${DOMAINS[@]}"; do
       
       # Run the Java command with the current domain and problem file, and save output
       echo "Running: $JAVA_CMD $domain_file $problem_file"
+      output_text=$($JAVA_CMD "$domain_file" "$problem_file")
       $JAVA_CMD "$domain_file" "$problem_file" > "$output_file"
+
+      # Extract the plan part from the output
+      plan_output=$(echo "$output_text" | grep -E '^[0-9]+: \(.*\) \[0\]$')
+
+      # Save the plan to a separate plan file
+      plan_file="$DOMAIN_RESULTS_DIR/$(basename "${problem_file%.pddl}plan.txt")"
+      echo "$plan_output" > "$plan_file"
       
       # Extract total time and steps from output file
       total_time=$(grep "total time" "$output_file" | awk '{print $1}')
