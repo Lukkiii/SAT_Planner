@@ -281,18 +281,27 @@ public final class SATPlanner extends AbstractPlanner<ADLProblem> {
         BitVector a2PosEffects = a2.getUnconditionalEffect().getPositiveFluents();
         BitVector a2NegEffects = a2.getUnconditionalEffect().getNegativeFluents();
 
-        if (a1PosEffects.intersects(a2NegEffects) || a2PosEffects.intersects(a1NegEffects)) {
-            return true;
-        }
-
         BitVector a1PrePos = a1.getPrecondition().getPositiveFluents();
         BitVector a1PreNeg = a1.getPrecondition().getNegativeFluents();
         BitVector a2PrePos = a2.getPrecondition().getPositiveFluents();
         BitVector a2PreNeg = a2.getPrecondition().getNegativeFluents();
 
+        if (a1PosEffects.intersects(a2NegEffects) || a2PosEffects.intersects(a1NegEffects)) {
+            return true;
+        }
+
         if (a1PosEffects.intersects(a2PreNeg) || a1NegEffects.intersects(a2PrePos)) {
             return true;
         }
+
+        if (a2PosEffects.intersects(a1PreNeg) || a2NegEffects.intersects(a1PrePos)) {
+            return true;
+        }
+
+        if (a1PrePos.intersects(a2NegEffects) || a1PreNeg.intersects(a2PosEffects)) {
+            return true;
+        }
+
         return false;
     }
 
