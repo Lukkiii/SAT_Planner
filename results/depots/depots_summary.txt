@@ -1,11 +1,11 @@
 Problem | Steps | Total Time (seconds)
-p01.pddl |       18 | 0.12
-p02.pddl |       18 | 0.40
-p03.pddl |       44 | 6.02
-p04.pddl |       41 | 19.75
+p01.pddl |       18 | 0.14
+p02.pddl |       18 | 0.39
+p03.pddl |       44 | 6.10
+p04.pddl |       41 | 19.36
 p05.pddl |        0 | 
 p06.pddl |        0 | 
-p07.pddl |       42 | 5.27
-p08.pddl |       47 | 45.86
+p07.pddl |       42 | 5.47
+p08.pddl |       47 | 47.87
 p09.pddl |        0 | 
-p10.pddl |       46 | 27.05
+p10.pddl |       46 | 27.54

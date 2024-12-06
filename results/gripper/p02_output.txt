@@ -9,13 +9,17 @@ problem instantiation done successfully (52 actions, 28 fluents)
 
 935 clauses
 Contradiction exception
-No solution found1836 clauses
+No solution found
+1836 clauses
 Is not satisfiable !
-No solution found3638 clauses
+No solution found
+3638 clauses
 Is not satisfiable !
-No solution found7242 clauses
+No solution found
+7242 clauses
 Is not satisfiable !
-No solution found14450 clauses
+No solution found
+14450 clauses
 Is satisfiable !
 
 found plan as follows:
@@ -43,8 +47,8 @@ found plan as follows:
 20: ( drop ball2 roomb left) [0]
 
 time spent:       0.01 seconds parsing 
-                  0.07 seconds encoding 
-                  0.23 seconds searching
+                  0.08 seconds encoding 
+                  0.22 seconds searching
                   0.31 seconds total time
 
 memory used:      0.14 MBytes for problem representation

@@ -7,53 +7,63 @@ parsing problem file "p09.pddl" done successfully
 
 problem instantiation done successfully (140 actions, 56 fluents)
 
-1169 clauses
+1409 clauses
 Contradiction exception
-No solution found2276 clauses
+No solution found
+2756 clauses
 Is not satisfiable !
-No solution found4490 clauses
+No solution found
+5450 clauses
 Is not satisfiable !
-No solution found8918 clauses
+No solution found
+10838 clauses
+Is not satisfiable !
+No solution found
+21614 clauses
 Is satisfiable !
 
 found plan as follows:
 
 00: (     load-truck obj23 tru2 pos2) [0]
 01: (     load-truck obj22 tru2 pos2) [0]
-02: (     load-truck obj13 tru1 pos1) [0]
-03: (     load-truck obj12 tru1 pos1) [0]
-04: (     load-truck obj11 tru1 pos1) [0]
+02: (     load-truck obj21 tru2 pos2) [0]
+03: (drive-truck tru1 pos1 apt1 cit1) [0]
+04: (    fly-airplane apn1 apt2 apt1) [0]
 05: (drive-truck tru2 pos2 apt2 cit2) [0]
-06: (drive-truck tru1 pos1 apt1 cit1) [0]
-07: (    fly-airplane apn1 apt2 apt1) [0]
-08: (   unload-truck obj23 tru2 apt2) [0]
-09: (   unload-truck obj13 tru1 apt1) [0]
-10: (   unload-truck obj12 tru1 apt1) [0]
-11: (   unload-truck obj11 tru1 apt1) [0]
-12: (drive-truck tru1 apt1 pos1 cit1) [0]
-13: (    fly-airplane apn1 apt1 apt2) [0]
-14: (   unload-truck obj22 tru2 apt2) [0]
-15: (  load-airplane obj23 apn1 apt2) [0]
+06: (    fly-airplane apn1 apt1 apt2) [0]
+07: (   unload-truck obj23 tru2 apt2) [0]
+08: (drive-truck tru1 apt1 pos1 cit1) [0]
+09: (     load-truck obj13 tru1 pos1) [0]
+10: (    fly-airplane apn1 apt2 apt1) [0]
+11: (    fly-airplane apn1 apt1 apt2) [0]
+12: (  load-airplane obj23 apn1 apt2) [0]
+13: (   unload-truck obj22 tru2 apt2) [0]
+14: (     load-truck obj12 tru1 pos1) [0]
+15: (     load-truck obj11 tru1 pos1) [0]
 16: (  load-airplane obj22 apn1 apt2) [0]
-17: (    fly-airplane apn1 apt2 apt1) [0]
-18: (  load-airplane obj12 apn1 apt1) [0]
-19: (  load-airplane obj11 apn1 apt1) [0]
-20: (unload-airplane obj23 apn1 apt1) [0]
-21: (unload-airplane obj22 apn1 apt1) [0]
-22: (drive-truck tru1 pos1 apt1 cit1) [0]
-23: (    fly-airplane apn1 apt1 apt2) [0]
-24: (unload-airplane obj12 apn1 apt2) [0]
-25: (unload-airplane obj11 apn1 apt2) [0]
-26: (    fly-airplane apn1 apt2 apt1) [0]
-27: (     load-truck obj11 tru2 apt2) [0]
-28: (drive-truck tru2 apt2 pos2 cit2) [0]
-29: (    fly-airplane apn1 apt1 apt2) [0]
-30: (   unload-truck obj11 tru2 pos2) [0]
+17: (drive-truck tru1 pos1 apt1 cit1) [0]
+18: (    fly-airplane apn1 apt2 apt1) [0]
+19: (   unload-truck obj13 tru1 apt1) [0]
+20: (   unload-truck obj12 tru1 apt1) [0]
+21: (   unload-truck obj11 tru1 apt1) [0]
+22: (unload-airplane obj23 apn1 apt1) [0]
+23: (unload-airplane obj22 apn1 apt1) [0]
+24: (  load-airplane obj11 apn1 apt1) [0]
+25: (  load-airplane obj12 apn1 apt1) [0]
+26: (    fly-airplane apn1 apt1 apt2) [0]
+27: (unload-airplane obj12 apn1 apt2) [0]
+28: (unload-airplane obj11 apn1 apt2) [0]
+29: (     load-truck obj11 tru2 apt2) [0]
+30: (    fly-airplane apn1 apt2 apt1) [0]
+31: (drive-truck tru2 apt2 pos2 cit2) [0]
+32: (   unload-truck obj21 tru2 pos2) [0]
+33: (   unload-truck obj11 tru2 pos2) [0]
+34: (    fly-airplane apn1 apt1 apt2) [0]
 
 time spent:       0.01 seconds parsing 
-                  0.12 seconds encoding 
-                  0.02 seconds searching
-                  0.15 seconds total time
+                  0.20 seconds encoding 
+                  0.04 seconds searching
+                  0.25 seconds total time
 
 memory used:      0.30 MBytes for problem representation
                   0.00 MBytes for searching

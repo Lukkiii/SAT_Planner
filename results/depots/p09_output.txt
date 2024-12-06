@@ -9,12 +9,16 @@ problem instantiation done successfully (1908 actions, 474 fluents)
 
 670894 clauses
 Contradiction exception
-No solution found1341301 clauses
+No solution found
+1341301 clauses
 Is not satisfiable !
-No solution found2682115 clauses
+No solution found
+2682115 clauses
 Is not satisfiable !
-No solution found5363743 clauses
+No solution found
+5363743 clauses
 Is not satisfiable !
-No solution found10726999 clauses
+No solution found
+10726999 clauses
 Is not satisfiable !
 No solution found

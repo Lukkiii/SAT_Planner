@@ -9,15 +9,20 @@ problem instantiation done successfully (100 actions, 52 fluents)
 
 2705 clauses
 Contradiction exception
-No solution found5346 clauses
+No solution found
+5346 clauses
 Is not satisfiable !
-No solution found10628 clauses
+No solution found
+10628 clauses
 Is not satisfiable !
-No solution found21192 clauses
+No solution found
+21192 clauses
 Is not satisfiable !
-No solution found42320 clauses
+No solution found
+42320 clauses
 Is not satisfiable !
-No solution found84576 clauses
+No solution found
+84576 clauses
 Is satisfiable !
 
 found plan as follows:
@@ -70,8 +75,8 @@ found plan as follows:
 
 time spent:       0.01 seconds parsing 
                   0.27 seconds encoding 
-                432.35 seconds searching
-                432.62 seconds total time
+                490.01 seconds searching
+                490.29 seconds total time
 
 memory used:      0.24 MBytes for problem representation
                   0.00 MBytes for searching

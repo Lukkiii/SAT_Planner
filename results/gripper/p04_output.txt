@@ -9,15 +9,20 @@ problem instantiation done successfully (84 actions, 44 fluents)
 
 2019 clauses
 Contradiction exception
-No solution found3984 clauses
+No solution found
+3984 clauses
 Is not satisfiable !
-No solution found7914 clauses
+No solution found
+7914 clauses
 Is not satisfiable !
-No solution found15774 clauses
+No solution found
+15774 clauses
 Is not satisfiable !
-No solution found31494 clauses
+No solution found
+31494 clauses
 Is not satisfiable !
-No solution found62934 clauses
+No solution found
+62934 clauses
 Is satisfiable !
 
 found plan as follows:
@@ -67,9 +72,9 @@ found plan as follows:
 42: (  drop ball2 roomb left) [0]
 
 time spent:       0.01 seconds parsing 
-                  0.17 seconds encoding 
-                229.35 seconds searching
-                229.53 seconds total time
+                  0.18 seconds encoding 
+                238.01 seconds searching
+                238.20 seconds total time
 
 memory used:      0.21 MBytes for problem representation
                   0.00 MBytes for searching

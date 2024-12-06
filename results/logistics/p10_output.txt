@@ -7,51 +7,80 @@ parsing problem file "p10.pddl" done successfully
 
 problem instantiation done successfully (140 actions, 56 fluents)
 
-1169 clauses
+1409 clauses
 Contradiction exception
-No solution found2276 clauses
+No solution found
+2756 clauses
 Is not satisfiable !
-No solution found4490 clauses
+No solution found
+5450 clauses
 Is not satisfiable !
-No solution found8918 clauses
+No solution found
+10838 clauses
+Is not satisfiable !
+No solution found
+21614 clauses
 Is satisfiable !
 
 found plan as follows:
 
-00: (     load-truck obj23 tru2 pos2) [0]
-01: (     load-truck obj22 tru2 pos2) [0]
-02: (     load-truck obj13 tru1 pos1) [0]
-03: (drive-truck tru2 pos2 apt2 cit2) [0]
-04: (    fly-airplane apn1 apt2 apt1) [0]
-05: (     load-truck obj11 tru1 pos1) [0]
-06: (   unload-truck obj23 tru2 apt2) [0]
-07: (   unload-truck obj22 tru2 apt2) [0]
-08: (drive-truck tru1 pos1 apt1 cit1) [0]
-09: (    fly-airplane apn1 apt1 apt2) [0]
-10: (  load-airplane obj23 apn1 apt2) [0]
-11: (  load-airplane obj22 apn1 apt2) [0]
-12: (   unload-truck obj13 tru1 apt1) [0]
-13: (   unload-truck obj11 tru1 apt1) [0]
-14: (    fly-airplane apn1 apt2 apt1) [0]
-15: (  load-airplane obj13 apn1 apt1) [0]
-16: (unload-airplane obj23 apn1 apt1) [0]
-17: (unload-airplane obj22 apn1 apt1) [0]
-18: (    fly-airplane apn1 apt1 apt2) [0]
-19: (     load-truck obj23 tru1 apt1) [0]
-20: (unload-airplane obj13 apn1 apt2) [0]
-21: (drive-truck tru1 apt1 pos1 cit1) [0]
-22: (    fly-airplane apn1 apt2 apt1) [0]
-23: (     load-truck obj13 tru2 apt2) [0]
-24: (   unload-truck obj23 tru1 pos1) [0]
+00: (     load-truck obj13 tru1 pos1) [0]
+01: (     load-truck obj12 tru1 pos1) [0]
+02: (drive-truck tru2 pos2 apt2 cit2) [0]
+03: (    fly-airplane apn1 apt2 apt1) [0]
+04: (drive-truck tru2 apt2 pos2 cit2) [0]
+05: (    fly-airplane apn1 apt1 apt2) [0]
+06: (     load-truck obj23 tru2 pos2) [0]
+07: (     load-truck obj22 tru2 pos2) [0]
+08: (     load-truck obj21 tru2 pos2) [0]
+09: (drive-truck tru1 pos1 apt1 cit1) [0]
+10: (   unload-truck obj13 tru1 apt1) [0]
+11: (   unload-truck obj12 tru1 apt1) [0]
+12: (drive-truck tru2 pos2 apt2 cit2) [0]
+13: (    fly-airplane apn1 apt2 apt1) [0]
+14: (  load-airplane obj13 apn1 apt1) [0]
+15: (drive-truck tru2 apt2 pos2 cit2) [0]
+16: (drive-truck tru1 apt1 pos1 cit1) [0]
+17: (drive-truck tru2 pos2 apt2 cit2) [0]
+18: (drive-truck tru1 pos1 apt1 cit1) [0]
+19: (    fly-airplane apn1 apt1 apt2) [0]
+20: (   unload-truck obj23 tru2 apt2) [0]
+21: (   unload-truck obj22 tru2 apt2) [0]
+22: (   unload-truck obj21 tru2 apt2) [0]
+23: (    fly-airplane apn1 apt2 apt1) [0]
+24: (     load-truck obj12 tru1 apt1) [0]
 25: (drive-truck tru2 apt2 pos2 cit2) [0]
-26: (drive-truck tru1 pos1 apt1 cit1) [0]
-27: (    fly-airplane apn1 apt1 apt2) [0]
-28: (   unload-truck obj13 tru2 pos2) [0]
+26: (    fly-airplane apn1 apt1 apt2) [0]
+27: (  load-airplane obj23 apn1 apt2) [0]
+28: (  load-airplane obj22 apn1 apt2) [0]
+29: (unload-airplane obj13 apn1 apt2) [0]
+30: (drive-truck tru1 apt1 pos1 cit1) [0]
+31: (     load-truck obj11 tru1 pos1) [0]
+32: (   unload-truck obj12 tru1 pos1) [0]
+33: (drive-truck tru2 pos2 apt2 cit2) [0]
+34: (    fly-airplane apn1 apt2 apt1) [0]
+35: (unload-airplane obj23 apn1 apt1) [0]
+36: (  load-airplane obj23 apn1 apt1) [0]
+37: (drive-truck tru2 apt2 pos2 cit2) [0]
+38: (unload-airplane obj23 apn1 apt1) [0]
+39: (drive-truck tru2 pos2 apt2 cit2) [0]
+40: (drive-truck tru1 pos1 apt1 cit1) [0]
+41: (     load-truck obj23 tru1 apt1) [0]
+42: (     load-truck obj21 tru2 apt2) [0]
+43: (     load-truck obj13 tru2 apt2) [0]
+44: (   unload-truck obj11 tru1 apt1) [0]
+45: (unload-airplane obj22 apn1 apt1) [0]
+46: (drive-truck tru2 apt2 pos2 cit2) [0]
+47: (drive-truck tru1 apt1 pos1 cit1) [0]
+48: (   unload-truck obj23 tru1 pos1) [0]
+49: (   unload-truck obj21 tru2 pos2) [0]
+50: (   unload-truck obj13 tru2 pos2) [0]
+51: (    fly-airplane apn1 apt1 apt2) [0]
 
 time spent:       0.01 seconds parsing 
-                  0.12 seconds encoding 
-                  0.02 seconds searching
-                  0.16 seconds total time
+                  0.18 seconds encoding 
+                  0.04 seconds searching
+                  0.23 seconds total time
 
 memory used:      0.30 MBytes for problem representation
                   0.00 MBytes for searching

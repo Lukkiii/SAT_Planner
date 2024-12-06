@@ -9,13 +9,17 @@ problem instantiation done successfully (594 actions, 178 fluents)
 
 75018 clauses
 Contradiction exception
-No solution found149852 clauses
+No solution found
+149852 clauses
 Is not satisfiable !
-No solution found299520 clauses
+No solution found
+299520 clauses
 Is not satisfiable !
-No solution found598856 clauses
+No solution found
+598856 clauses
 Is not satisfiable !
-No solution found1197528 clauses
+No solution found
+1197528 clauses
 Is satisfiable !
 
 found plan as follows:
@@ -63,9 +67,9 @@ found plan as follows:
 40: ( drop hoist2 crate5 pallet2 distributor1) [0]
 
 time spent:       0.01 seconds parsing 
-                  9.09 seconds encoding 
-                 10.65 seconds searching
-                 19.75 seconds total time
+                  8.87 seconds encoding 
+                 10.48 seconds searching
+                 19.36 seconds total time
 
 memory used:      1.52 MBytes for problem representation
                   0.00 MBytes for searching

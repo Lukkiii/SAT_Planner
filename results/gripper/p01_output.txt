@@ -9,11 +9,14 @@ problem instantiation done successfully (36 actions, 20 fluents)
 
 537 clauses
 Contradiction exception
-No solution found1050 clauses
+No solution found
+1050 clauses
 Is not satisfiable !
-No solution found2076 clauses
+No solution found
+2076 clauses
 Is not satisfiable !
-No solution found4128 clauses
+No solution found
+4128 clauses
 Is satisfiable !
 
 found plan as follows:

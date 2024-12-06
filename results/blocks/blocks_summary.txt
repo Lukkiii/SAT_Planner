@@ -1,11 +1,11 @@
 Problem | Steps | Total Time (seconds)
-p001.pddl |        6 | 0.10
-p002.pddl |       12 | 0.11
-p003.pddl |        6 | 0.09
-p004.pddl |       12 | 0.22
-p005.pddl |       10 | 0.25
-p006.pddl |       16 | 0.29
-p007.pddl |       14 | 0.26
-p008.pddl |       16 | 0.25
-p009.pddl |       28 | 1.91
-p010.pddl |       30 | 2.04
+p001.pddl |        6 | 0.09
+p002.pddl |       12 | 0.13
+p003.pddl |        6 | 0.10
+p004.pddl |       12 | 0.24
+p005.pddl |       10 | 0.27
+p006.pddl |       16 | 0.30
+p007.pddl |       14 | 0.31
+p008.pddl |       16 | 0.24
+p009.pddl |       28 | 1.85
+p010.pddl |       30 | 2.01

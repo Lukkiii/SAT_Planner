@@ -7,9 +7,13 @@ parsing problem file "p06.pddl" done successfully
 
 problem instantiation done successfully (140 actions, 56 fluents)
 
-1168 clauses
+1408 clauses
 Contradiction exception
-No solution found2275 clauses
+No solution found
+2755 clauses
+Is not satisfiable !
+No solution found
+5449 clauses
 Is satisfiable !
 
 found plan as follows:
@@ -17,18 +21,20 @@ found plan as follows:
 00: (     load-truck obj23 tru2 pos2) [0]
 01: (     load-truck obj21 tru2 pos2) [0]
 02: (     load-truck obj12 tru1 pos1) [0]
-03: (drive-truck tru2 pos2 apt2 cit2) [0]
-04: (drive-truck tru1 pos1 apt1 cit1) [0]
-05: (    fly-airplane apn1 apt2 apt1) [0]
-06: (   unload-truck obj23 tru2 apt2) [0]
-07: (   unload-truck obj21 tru2 apt2) [0]
-08: (   unload-truck obj12 tru1 apt1) [0]
-09: (    fly-airplane apn1 apt1 apt2) [0]
+03: (     load-truck obj11 tru1 pos1) [0]
+04: (    fly-airplane apn1 apt2 apt1) [0]
+05: (drive-truck tru2 pos2 apt2 cit2) [0]
+06: (drive-truck tru1 pos1 apt1 cit1) [0]
+07: (    fly-airplane apn1 apt1 apt2) [0]
+08: (   unload-truck obj23 tru2 apt2) [0]
+09: (   unload-truck obj21 tru2 apt2) [0]
+10: (   unload-truck obj12 tru1 apt1) [0]
+11: (   unload-truck obj11 tru1 apt1) [0]
 
-time spent:       0.02 seconds parsing 
-                  0.07 seconds encoding 
-                  0.01 seconds searching
-                  0.10 seconds total time
+time spent:       0.01 seconds parsing 
+                  0.10 seconds encoding 
+                  0.02 seconds searching
+                  0.13 seconds total time
 
 memory used:      0.30 MBytes for problem representation
                   0.00 MBytes for searching
